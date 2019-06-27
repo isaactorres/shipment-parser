@@ -74,14 +74,22 @@ class ShipmentParser {
     }
   }
 
-  getShipmentWithAssociatedShipments(shipmentNumber) {
-    const shipment = this.getShipmentWithDetails(shipmentNumber);
-    if (shipment) {
-      const parentShipment = this.getShipmentWithAssociatedShipments(shipment.parentShipmentNumber);
-      return {
-        ...shipment,
-        parentShipment,
-      };
+  getAllShipmentsByOrderNumber(orderNumber) {
+    const shipments = {};
+    const shipmentKeys = Object.keys(this.shipments);
+    shipmentKeys.forEach(shipmentNumber => {
+      let shipment = this.getShipmentWithDetails(shipmentNumber);
+      if (shipment && shipment.orderNumber === orderNumber) {
+        // found a matching shipment
+        shipments[shipment.shipmentNumber] = shipment;
+      } else if (shipment.parentShipmentNumber && shipments[shipment.parentShipmentNumber]) {
+        // found an associated shipmement
+        shipments[shipment.shipmentNumber] = shipment;
+      }
+    });
+
+    if (Object.values(shipments).length > 0) {
+      return Object.values(shipments);
     }
   }
 
@@ -94,7 +102,7 @@ class ShipmentParser {
       str += `Shipment #${index}
 ${this.shipmentToString(shipment.shipmentNumber)}
 `;
-    index += 1;
+      index += 1;
     });
 
     return str;

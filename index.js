@@ -12,4 +12,4 @@ shipments.log();
 
 console.log('\n', shipments.getShipment('SH348503'));
 console.log('\n', shipments.getShipmentWithDetails('SH465994'));
-console.log('\n', shipments.getShipmentWithAssociatedShipments('SH927813'));
+console.log('\n', shipments.getAllShipmentsByOrderNumber('O234934'));

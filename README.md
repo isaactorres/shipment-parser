@@ -33,7 +33,7 @@ shipments.getShipment('SH348503')
 ```js
 shipments.getShipmentWithDetails('SH465994')
 ```
-5. To get a detailed shipment object with all associated shipments, pass the `shipmentNumber` as a param to `getShipmentWithAssociatedShipments`:
+5. To get an array of detailed shipments objects with all associated shipments, pass the `orderNumber` as a param to `getAllShipmentsByOrderNumber`:
 ```js
-shipments.getShipmentWithAssociatedShipments('SH927813')
+shipments.getAllShipmentsByOrderNumber('O234934')
 ```
